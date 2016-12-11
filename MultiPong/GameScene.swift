@@ -28,6 +28,9 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
     var mcSession: MCSession!
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
     
+    var leftWall = SKSpriteNode()
+    var rightWall = SKSpriteNode()
+    
     override func didMove(to view: SKView) {
         peerID = MCPeerID(displayName: UIDevice.current.name)
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
@@ -44,6 +47,10 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
         topLabel = self.childNode(withName: "topLabel") as! SKLabelNode
         bottomLabel = self.childNode(withName: "bottomLabel") as! SKLabelNode
         
+        
+        leftWall = self.childNode(withName: "leftWall") as! SKSpriteNode
+        rightWall = self.childNode(withName: "rightWall") as! SKSpriteNode
+        
         ball.isHidden = true
         enemy.isHidden = true
         main.isHidden = true
@@ -55,25 +62,25 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
     
     func startGame() {
         
-        if mcSession.connectedPeers.count < 1 {
+        if mcSession.connectedPeers.count != 0 { // should be 1
             showConnectionPrompt()
-            print("People connected: \(mcSession.connectedPeers.count)")
         } else {
             
             ball.isHidden = false
-            enemy.isHidden = false
+         //   enemy.isHidden = false
             main.isHidden = false
             topLabel.isHidden = false
             bottomLabel.isHidden = false
             startButton.isHidden = true
             
             ball.physicsBody?.applyImpulse(CGVector(dx: 20, dy: 20)) // give it initial push
+           
             
-            let border = SKPhysicsBody(edgeLoopFrom: self.frame)
-            border.friction = 0
-            border.restitution = 1
+          //  let border = SKPhysicsBody(edgeLoopFrom: self.frame)
+          //  border.friction = 0
+          //  border.restitution = 1
             
-            self.physicsBody = border
+          //  self.physicsBody = border
             
             score = [0,0]   // myScore, enemyScore
             topLabel.text = "\(score[1])"
@@ -97,7 +104,6 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
         topLabel.text = "\(score[1])"
         bottomLabel.text = "\(score[0])"
         
-        print("Your score: \(score[0])\nEnemy score: \(score[1])\n")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -105,7 +111,6 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
             let location = touch.location(in: self) // location of finger
             
             if startButton.contains(location){
-                print("Tapped!")
                 startGame()
             }
             
@@ -121,11 +126,13 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        enemy.run(SKAction.moveTo(x: ball.position.x, duration: 0.4))
+        enemy.run(SKAction.moveTo(x: ball.position.x + 5000, duration: 0.4))
         
         if ball.position.y <= main.position.y - 20 {
             addScore(playerWhoWon: enemy)
             
+        } else if ball.position.y >= self.frame.height - 15 {
+          //  addScore(playerWhoWon: main)
             do {
                 var pos : Int = 1
                 let data = NSData(bytes: &pos, length: MemoryLayout<Int>.size)
@@ -138,11 +145,7 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
                 currentViewController.present(ac, animated: true, completion: nil)
             }
 
-            
-        } else if ball.position.y >= enemy.position.y + 70 {
-            addScore(playerWhoWon: main)
         }
-        
         
     }
     
