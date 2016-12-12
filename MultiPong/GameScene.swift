@@ -62,7 +62,7 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
     
     func startGame() {
         
-        if mcSession.connectedPeers.count != 0 { // should be 1
+        if mcSession.connectedPeers.count != 1 { // should be 1
             showConnectionPrompt()
         } else {
             
@@ -79,7 +79,6 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
           //  let border = SKPhysicsBody(edgeLoopFrom: self.frame)
           //  border.friction = 0
           //  border.restitution = 1
-            
           //  self.physicsBody = border
             
             score = [0,0]   // myScore, enemyScore
@@ -134,9 +133,9 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
         } else if ball.position.y >= self.frame.height - 15 {
           //  addScore(playerWhoWon: main)
             do {
-                var pos : Int = 1
-                let data = NSData(bytes: &pos, length: MemoryLayout<Int>.size)
-                try mcSession.send(data as Data, toPeers: mcSession.connectedPeers, with: .unreliable)
+                let pointToSend : CGPoint = ball.position
+                let pointData = NSStringFromCGPoint(pointToSend).data(using: .utf8)
+            try mcSession.send(pointData! as Data, toPeers: mcSession.connectedPeers, with: .unreliable)
             } catch let error as NSError{
                 let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
@@ -196,7 +195,11 @@ class GameScene: SKScene, MCSessionDelegate, MCBrowserViewControllerDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("DATA RECIEVED")
+        let pointString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+        let ballPos = CGPointFromString(pointString as! String)
+        
+        print("Ball Position: (\(ballPos.x), \(ballPos.y))")
+        
     }
     
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
