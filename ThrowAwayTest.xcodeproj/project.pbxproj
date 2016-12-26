@@ -15,6 +15,8 @@
 		94589B401E11BB0700A1413F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94589B3E1E11BB0700A1413F /* Main.storyboard */; };
 		94589B421E11BB0700A1413F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94589B411E11BB0700A1413F /* Assets.xcassets */; };
 		94589B451E11BB0700A1413F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94589B431E11BB0700A1413F /* LaunchScreen.storyboard */; };
+		94BB50F01E11C76D00BBE136 /* sessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BB50EF1E11C76D00BBE136 /* sessionController.swift */; };
+		94BB50F21E11C79600BBE136 /* MCSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BB50F11E11C79600BBE136 /* MCSessionExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		94589B411E11BB0700A1413F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94589B441E11BB0700A1413F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		94589B461E11BB0700A1413F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94BB50EF1E11C76D00BBE136 /* sessionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sessionController.swift; sourceTree = "<group>"; };
+		94BB50F11E11C79600BBE136 /* MCSessionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCSessionExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,8 @@
 				94589B361E11BB0600A1413F /* GameScene.sks */,
 				94589B381E11BB0600A1413F /* Actions.sks */,
 				94589B3A1E11BB0600A1413F /* GameScene.swift */,
+				94BB50EF1E11C76D00BBE136 /* sessionController.swift */,
+				94BB50F11E11C79600BBE136 /* MCSessionExtension.swift */,
 				94589B3C1E11BB0600A1413F /* GameViewController.swift */,
 				94589B3E1E11BB0700A1413F /* Main.storyboard */,
 				94589B411E11BB0700A1413F /* Assets.xcassets */,
@@ -150,7 +156,9 @@
 			files = (
 				94589B3B1E11BB0600A1413F /* GameScene.swift in Sources */,
 				94589B3D1E11BB0600A1413F /* GameViewController.swift in Sources */,
+				94BB50F01E11C76D00BBE136 /* sessionController.swift in Sources */,
 				94589B351E11BB0600A1413F /* AppDelegate.swift in Sources */,
+				94BB50F21E11C79600BBE136 /* MCSessionExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +320,7 @@
 				94589B4B1E11BB0700A1413F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
